@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>dearbaby.hz</groupId>
+  <artifactId>shard-shardingphere</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+	   <groupId>org.apache.shardingsphere</groupId>
+           <artifactId>sharding-jdbc-core</artifactId>
+            <version>4.0.0-RC2</version>
+        </dependency>
+            
+        <dependency>
+		   <groupId>org.apache.shardingsphere</groupId> 
+             <artifactId>sharding-jdbc-spring-namespace</artifactId>
+             <version>4.0.0-RC2</version>
+        </dependency>
+         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+			   <groupId>dearbaby.hz</groupId>
+               <artifactId>shard-client</artifactId>
+               <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+            
+   
+  </dependencies>
+</project>
