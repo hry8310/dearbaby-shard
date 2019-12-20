@@ -28,12 +28,13 @@ import org.apache.shardingsphere.core.rule.MasterSlaveRule;
 
 import dearbaby.hz.shard.client.bean.SlaveStatus;
 import dearbaby.hz.shard.client.bean.Viewer;
+import dearbaby.hz.shard.client.common.MsHelper;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
+  
 /**
  * Master slave router interface.
  * 
@@ -60,7 +61,8 @@ public  class DearBabyMasterSlaveRouter {
     public Collection<String> route(final String sql, final boolean useCache) {
     	
         if(Viewer.getStatus()==SlaveStatus.STATUS_ERR||(
-        		Viewer.getStatus()==SlaveStatus.STATUS_WARN&&Viewer.getLevel()<8)){
+        		Viewer.getStatus()==SlaveStatus.STATUS_WARN&&Viewer.getLevel()<8)
+        		||MsHelper.c()){
         	return Collections.singletonList(masterSlaveRule.getMasterDataSourceName());
         }
     	Collection<String> result = route(parseEngine.parse(sql, useCache));
