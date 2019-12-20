@@ -1,0 +1,4 @@
+   <bean class="dearbaby.hz.shard.client.net.NetClient" init-method="reStart">
+        <property name="address" value="127.0.0.1"/>
+        <property name="port" value="7060" />
+    </bean>
