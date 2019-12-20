@@ -22,4 +22,13 @@
    <li>该工具更适合某些时段，从库可能处于高负荷状态导致同步有轻微的延迟，应用能够感知并将流向避开</li>
    <br/><br/>
    
+   
+   <strong>使用注意问题</strong>
+   <li>编译shard-view的时候，如果AdminServer报错，是因为这个程序应用了 com.sum..下的class。在eclipse这些是受限制的访问。解决办法度娘一下：eclipse 访问sun 有限制 </li>
+   <br/><br/>
+   
+   <strong>使用shard-shardingphere 使用注意点：</strong>
+   <li>再项目中直接导入 shard-shardingphere ，并无法保证必然替换shardingsphere 的 MasterSlaveRoute 。这依赖不同jvm的classload的实现。一般是没有问题，如果存在冲突，可以将 MasterSlaveRoute 复制到自己的项目中。根据classloadder 规则，想办法优先load自己的class（如：不打到jar） </li>
+   <li></li>
+   <br/><br/>
    <strong>持续更新中.....</strong>
