@@ -4,7 +4,7 @@
    <ul style='margin-left:60px;'>
    <li>工具主要包含两大组件:shard-view、shard-client。其中 shard-view 是监听服务，实时收集同步信息，并将信息传递给shard-client</li>
    <li>shard-view 是一个独立运行的服务，源码中包含了liunx的启动脚本start.sh 作为参考，可以根据实际调整 </li>
-   <li>shard-client 是一个工具包。主要对外提供api，可以加入到应用里。并且纳入spring管理</li>
+   <li>shard-client 是一个工具包。主要对外提供api，可以加入到应用里。并且纳入spring管理，配置文件参考：spring-cfg-demo.xml</li>
    <li>shard-shardingphere 是一个实际应用demo。居于shard-client 在 shardingphere的 MssterSlaveRoute的应用</li>
    </ul>
    </p>
