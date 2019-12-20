@@ -28,7 +28,7 @@
    <br/><br/>
    
    <strong>使用shard-shardingphere 使用注意点：</strong>
-   <li>再项目中直接导入 shard-shardingphere ，并无法保证必然替换shardingsphere 的 MasterSlaveRoute 。这依赖不同jvm的classload的实现。一般是没有问题，如果存在冲突，可以将 MasterSlaveRoute 复制到自己的项目中。根据classloadder 规则，想办法优先load自己的class（如：不打到jar） </li>
+   <li>再项目中直接导入 shard-shardingphere ，并无法保证必然替换shardingsphere 的 MasterSlaveRouter 。这依赖不同jvm的classload的实现。一般是没有问题，如果存在冲突，可以将 MasterSlaveRouter 复制到自己的项目中。根据classloadder 规则，想办法优先load自己的class（如：不打到jar） </li>
    <li>在 shardingsphere master-slave:data-source  中的 slave-data-source-names 属性。表列的slave名称。必须要与 shard-view 中的shard_view.properties 定义的 slave必须一致(定义在slave.list ) 。如 slave-data-source-names='slave0,slave1'。.properties 的slave.list=slave0,slave1 </li>
    <br/><br/>
    <strong>持续更新中.....</strong>
