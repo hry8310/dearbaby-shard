@@ -65,7 +65,8 @@ public class Starter
        	    nm.start(tm);
        	 
        	    tm.start();
-       	    
+       	    ViewApp.setTaskMamager(tm);
+       	    ViewApp.setNetMamager(nm);
        	    
     	}catch(Exception e){
     		e.printStackTrace();

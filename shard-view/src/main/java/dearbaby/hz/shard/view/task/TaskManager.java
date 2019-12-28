@@ -9,15 +9,19 @@ import dearbaby.hz.shard.view.bean.MonitorStatus;
 import dearbaby.hz.shard.view.bean.NetMsg;
 import dearbaby.hz.shard.view.bean.SlaveMsg;
 import dearbaby.hz.shard.view.bean.SlaveStatus;
+import dearbaby.hz.shard.view.common.Utils;
+import dearbaby.hz.shard.view.common.ViewConfig;
 import dearbaby.hz.shard.view.db.DataSourceConfig;
 import dearbaby.hz.shard.view.db.DbHandle;
 import dearbaby.hz.shard.view.db.DbSource;
+import dearbaby.hz.shard.view.net.handle.BaseTaskHandle;
 
 public class TaskManager {
 
 	private ArrayList<SlaveTask> slaveTasks;
 	
 	private MasterTask masterTask;
+	
 	 
 	
 	private ConcurrentLinkedQueue<SlaveMsg> slaveMsgList;
@@ -46,12 +50,15 @@ public class TaskManager {
 		for(DbSource db :DataSourceConfig.getSlaves()){
 			//System.out.println("xxxxxxxxx_slaver");
 			DbHandle hd=new DbHandle();
+			
 			hd.setDbSource(db);
 			SlaveTask task=new SlaveTask( );
 			task.setHandle(hd);
 			task.setThreadNum(num++);
 			task.setTm(this); 
 			task.setSlaveMsgList(slaveMsgList);	
+			task.setTaskHandle(Utils.handleInstall(ViewConfig.handleClass, this, hd, ViewConfig.handleParam));
+			
 		    slaveTasks.add(task);
 		    
 		    SlaveStatus ss=new SlaveStatus();
@@ -71,6 +78,8 @@ public class TaskManager {
 		masterTask.setTm(this);
 		masterTask.setSlaveMsgList(slaveMsgList);	
 		masterTask.setNetMsgList(netMsgList);
+		masterTask.setTaskHandle(Utils.handleInstall(ViewConfig.handleClass, this, hd, ViewConfig.handleParam));
+		
 	}
 
 	public ArrayList<SlaveTask> getSlaveTasks() {

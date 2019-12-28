@@ -5,6 +5,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import dearbaby.hz.shard.view.bean.MasterMsg;
+import dearbaby.hz.shard.view.bean.SlaveHandleParam;
+import dearbaby.hz.shard.view.bean.SlaveHandleReco;
 import dearbaby.hz.shard.view.bean.SlaveMsg;
 import dearbaby.hz.shard.view.bean.SlaveStatus;
 import dearbaby.hz.shard.view.db.DbHandle;
@@ -35,10 +37,12 @@ public class SlaveTask extends DbTask {
 			}
 			//System.out.println("xxxxxxcccc "+masterMsg.getTime());
 			if(masterMsg.getType()==MasterMsg.type_sel	){
-				DbRecord dr=handle.selRecord();
+				//DbRecord dr=handle.selRecord();
+				SlaveHandleParam param=new SlaveHandleParam();
+				SlaveHandleReco reco=taskHandle.slaveHandle(param);
 				SlaveMsg smsg=new  SlaveMsg();
-				smsg.setRecord(dr);
-				smsg.setTime(masterMsg.getTime());
+				smsg.setRecord(reco.getDbReco());
+				smsg.setTime(reco.getDbReco().getTime());
 				smsg.setThreadNum(threadNum);
 				putSlaveMsg(smsg);
 			}

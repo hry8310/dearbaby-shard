@@ -6,6 +6,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import dearbaby.hz.shard.view.bean.MasterHandleParam;
 import dearbaby.hz.shard.view.bean.MasterMsg;
 import dearbaby.hz.shard.view.bean.MonitorStatus;
 import dearbaby.hz.shard.view.bean.NetMsg;
@@ -23,7 +24,11 @@ public class MasterTask extends DbTask {
 	public  void exe() {
 		try{
 			currentTime=TaskStatus.getAndAddTime();
-			handle.updRecord(currentTime);
+			MasterHandleParam param=new MasterHandleParam();
+			param.setCurrentTime(currentTime);
+			taskHandle.masterHandle(param);
+			sleep(200l);
+			//handle.updRecord(currentTime);
 			putMasterMsg(MasterMsg.type_sel);
 		    count.await(1000, TimeUnit.MILLISECONDS);
 		    List<SlaveMsg> msgs= getSlavesMsg(tm.getSlaveTasks().size());
@@ -107,15 +112,19 @@ public class MasterTask extends DbTask {
 	private NetMsg analysisSlave(List<SlaveMsg> msgs){
 
 		ArrayList<Integer> thNums=new ArrayList<Integer>();
+
+		ArrayList<Integer> okNum=new ArrayList<Integer>();
+		
 		int ret=0;
 		for(SlaveMsg m:msgs){
 			thNums.add(m.getThreadNum());
 			if(m.getTime()>=currentTime){
 				ret++;
-				MonitorStatus.ok(m.getThreadNum());
-				 
-			}else{ 
 				
+				MonitorStatus.ok(m.getThreadNum());
+				okNum.add(m.getThreadNum());
+			}else{ 
+				System.out.println("xxxx  "+m.getTime()+"  , need:  "+currentTime);
 				long time=m.getTime()-currentTime;
 				if(time>10000000000000l){
 					time=1;
@@ -128,7 +137,7 @@ public class MasterTask extends DbTask {
 		NetMsg netMsg=new NetMsg();
 		netMsg.setOkSlave(ret);
 		netMsg.setAllSlave(tm.getSlaveTasks().size());
-		netMsg.setOks(Utils.listInts2NameStr(thNums,tm.getSlaveTasks()));
+		netMsg.setOks(Utils.listInts2NameStr(okNum,tm.getSlaveTasks()));
 		return netMsg;
 		
 		

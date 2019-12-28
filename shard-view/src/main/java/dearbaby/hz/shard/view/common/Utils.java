@@ -9,7 +9,10 @@ import java.util.Map;
 
 import dearbaby.hz.shard.view.bean.NetMsg;
 import dearbaby.hz.shard.view.bean.SlaveMsg;
+import dearbaby.hz.shard.view.db.DbHandle;
+import dearbaby.hz.shard.view.net.handle.BaseTaskHandle;
 import dearbaby.hz.shard.view.task.SlaveTask;
+import dearbaby.hz.shard.view.task.TaskManager;
 
 public class Utils {
 
@@ -22,6 +25,28 @@ public class Utils {
 			}
 		}
 		return find;
+	}
+	
+	public static BaseTaskHandle handleInstall( String className,
+			TaskManager tm,DbHandle handle,String param){
+		try {
+			if(className==null||className.length()==0){
+				className="dearbaby.hz.shard.view.net.handle.DefTaskHandle";
+			}
+            Class clz = Class.forName(className);
+            BaseTaskHandle obj = (BaseTaskHandle)clz.newInstance();
+            obj.setHandle(handle);
+            obj.setTm(tm);
+            if(param!=null){
+            	  obj.extParam(param);
+            }
+          
+            return obj;
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+		return null;
 	}
 	
 	

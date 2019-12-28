@@ -6,6 +6,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import dearbaby.hz.shard.view.bean.SlaveMsg;
 import dearbaby.hz.shard.view.db.DbHandle;
+import dearbaby.hz.shard.view.net.handle.BaseTaskHandle;
 
 public 	  class DbTask extends Thread {
 
@@ -20,6 +21,9 @@ public 	  class DbTask extends Thread {
 	
 	
 	protected TaskManager tm;
+	
+
+	protected BaseTaskHandle taskHandle;
 	
 	
 	public DbTask(){
@@ -101,8 +105,14 @@ public 	  class DbTask extends Thread {
 	public void setCount(CountDownLatch count) {
 		this.count = count;
 	}
+	public BaseTaskHandle getTaskHandle() {
+		return taskHandle;
+	}
+	public void setTaskHandle(BaseTaskHandle taskHandle) {
+		this.taskHandle = taskHandle;
+	}
 	 
-
+    
  
 	
 }
