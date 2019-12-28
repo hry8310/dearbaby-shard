@@ -25,7 +25,7 @@ public class Utils {
 	
 	public static NetMsg parseNetRspPack(String c){
 		NetMsg msg=new NetMsg();
-	 
+	    //System.out.println("c  "+c);
 		String[] cs=c.split("\\|");
 		if(cs.length<2){
 			return msg;

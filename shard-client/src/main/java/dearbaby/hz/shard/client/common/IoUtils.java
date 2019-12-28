@@ -102,7 +102,7 @@ public class IoUtils {
         	pack.setStatus(pack.STATUS_ERR);
 			return pack;
         }
-        //System.out.println(content);
+        System.out.println(content);
         pack.setStatus(pack.STATUS_OK);
 		pack.setContent(content);
          
