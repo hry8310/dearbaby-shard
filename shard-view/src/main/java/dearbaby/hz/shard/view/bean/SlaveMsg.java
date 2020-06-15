@@ -6,7 +6,10 @@ public class SlaveMsg {
 
 	private Integer threadNum;
 	
-	private Long time;
+	private Long recoTime;
+
+	private Long masterTime;
+	
 	
 	private DbRecord record;
 
@@ -22,12 +25,22 @@ public class SlaveMsg {
 		this.threadNum = threadNum;
 	}
 
-	public Long getTime() {
-		return time;
+	 
+
+	public Long getRecoTime() {
+		return recoTime;
 	}
 
-	public void setTime(Long time) {
-		this.time = time;
+	public void setRecoTime(Long recoTime) {
+		this.recoTime = recoTime;
+	}
+
+	public Long getMasterTime() {
+		return masterTime;
+	}
+
+	public void setMasterTime(Long masterTime) {
+		this.masterTime = masterTime;
 	}
 
 	public DbRecord getRecord() {

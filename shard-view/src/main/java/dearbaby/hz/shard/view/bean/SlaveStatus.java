@@ -10,6 +10,10 @@ public class SlaveStatus {
 	
 	private double delayTime=0;
 	
+    private double taskSlow=0;
+	
+	private double taskSlowTime=0;
+	
 	private double lastOk=0;
 	
 	private double lastErr=0;
@@ -39,6 +43,11 @@ public class SlaveStatus {
 		lastErr++;
 		delayTime=delayTime+time;
 		lastOk=0;
+	}
+	
+	public void addTaskSlow(int time){
+		taskSlow++;
+		taskSlowTime=taskSlowTime+time;
 	}
 	
 	public void ok(){

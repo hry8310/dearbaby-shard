@@ -22,4 +22,8 @@ public class MonitorStatus {
 	public static void addDelay(int idx,long time){
 		slaveStatus.get(idx).addDelay((int)time);
 	} 
+	
+	public static void addTaskSlow(int idx,long time){
+		slaveStatus.get(idx).addTaskSlow((int)time);
+	} 
 }

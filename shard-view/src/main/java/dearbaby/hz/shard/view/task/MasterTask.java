@@ -33,7 +33,11 @@ public class MasterTask extends DbTask {
 		    count.await(1000, TimeUnit.MILLISECONDS);
 		    List<SlaveMsg> msgs= getSlavesMsg(tm.getSlaveTasks().size());
 		    NetMsg netMsg=analysisSlave(msgs);
-		    netMsgList.add(netMsg);
+		    if(!netMsgList.offer(netMsg)){
+		    	if(netMsgList.size()>=ViewConfig.listSize){
+		    		netMsgList.clear();
+		    	}
+		    };
 		   // System.out.println("netMsg   "+netMsg.getOkSlaver());
 		    sleep(ViewConfig.interval);
 		    if(currentTime%3==0){
@@ -118,14 +122,22 @@ public class MasterTask extends DbTask {
 		int ret=0;
 		for(SlaveMsg m:msgs){
 			thNums.add(m.getThreadNum());
-			if(m.getTime()>=currentTime){
+			if(m.getRecoTime()>=m.getMasterTime()){
 				ret++;
 				
 				MonitorStatus.ok(m.getThreadNum());
 				okNum.add(m.getThreadNum());
+				if(m.getMasterTime()<currentTime){
+					System.out.println("task slow。。。。");
+					MonitorStatus.addTaskSlow(m.getThreadNum().intValue(),currentTime-m.getMasterTime());
+					for(SlaveTask st:tm.getSlaveTasks()){
+						if(st.getThreadNum().equals(m.getThreadNum()))
+						st.clean();
+					}
+				}
 			}else{ 
-				System.out.println("xxxx  "+m.getTime()+"  , need:  "+currentTime);
-				long time=m.getTime()-currentTime;
+				System.out.println("getMasterTime  "+m.getMasterTime()+"  , getRecoTime:  "+m.getRecoTime());
+				long time=m.getMasterTime()-m.getRecoTime();
 				if(time>10000000000000l){
 					time=1;
 				}

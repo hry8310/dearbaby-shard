@@ -42,7 +42,8 @@ public class SlaveTask extends DbTask {
 				SlaveHandleReco reco=taskHandle.slaveHandle(param);
 				SlaveMsg smsg=new  SlaveMsg();
 				smsg.setRecord(reco.getDbReco());
-				smsg.setTime(reco.getDbReco().getTime());
+				smsg.setRecoTime(reco.getDbReco().getTime());
+				smsg.setMasterTime(masterMsg.getTime());
 				smsg.setThreadNum(threadNum);
 				putSlaveMsg(smsg);
 			}
